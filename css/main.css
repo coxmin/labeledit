@@ -1,0 +1,505 @@
+
+html {
+    font-size: 1em;
+    line-height: 1.4;
+    font-size: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+#main {
+    margin: 0 auto;
+}
+
+#page {
+    width: 90%;
+    height: 100%;
+    padding: 0;
+    margin: 0 auto;
+    border: 1px #D3D3D3 solid;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+article, aside, details, figcaption, figure, footer, header, main, nav, section, summary {
+    display: block;
+}
+
+[hidden] {
+    display: none;
+}
+
+a:active,
+a:hover {
+    outline: 0;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 0.83em 0;
+}
+
+h3 {
+    font-size: 1.17em;
+    margin: 1em 0;
+}
+
+h4 {
+    font-size: 1em;
+    margin: 1.33em 0;
+}
+
+h5 {
+    font-size: 0.83em;
+    margin: 1.67em 0;
+}
+
+h6 {
+    font-size: 0.67em;
+    margin: 2.33em 0;
+}
+
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+b, strong {
+    font-weight: bold;
+}
+
+dfn {
+    font-style: italic;
+}
+
+mark {
+    background: #ff0;
+    color: #000;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, serif;
+    _font-family: 'courier new', monospace;
+    font-size: 1em;
+}
+
+pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+legend {
+    border: 0;
+    padding: 0;
+    white-space: normal;
+    *margin-left: -7px;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: hand;
+    *overflow: visible;
+}
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    *height: 13px;
+    *width: 13px;
+}
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+button {
+    width: 2em;
+}
+
+textarea {
+    overflow: auto; /* 1 */
+    vertical-align: top; /* 2 */
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+hr {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    display: block;
+    height: 0;
+    border: 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #eee;
+    margin: .5em 1em;
+    padding: 0;
+}
+
+img {
+    vertical-align: middle;
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+}
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+.textarea {
+    box-sizing: border-box;
+    margin: .5em;
+    padding: 2px;
+    border: 1px dashed #eee;
+    border-radius: 4px;
+    min-height: 10em;
+}
+
+#editor p {
+}
+
+#toolbar {
+    background-color: #111;
+    border-radius: 3px;
+    box-shadow: 0 -1px 3px 0px #777;
+    margin: 2px .2em;
+}
+
+.tbwrap {
+    display: inline-block;
+    margin: 2px;
+    padding: 0 1px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    box-shadow: 0 0 3px 1px #555;
+}
+
+.trow {
+    margin: 0px;
+    padding: 5px;
+    border-bottom: 1px solid #111;
+    border-top: 1px dotted #333;
+}
+
+input.color {
+    width: 4em;
+}
+
+input.fspick {
+    width: 3em;
+}
+
+#fgcolor {
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../fonts/fontawesome-webfont.eot?v=4.0.3');
+    src: url('../fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1em;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+.bold:before {
+    content: "\f032";
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.underline:before {
+    content: "\f0cd";
+}
+
+.strike:before {
+    content: "\f0cc";
+}
+
+.italic:before {
+    content: "\f033";
+}
+
+.sub:before {
+    content: "\f12c";
+}
+
+.sup:before {
+    content: "\f12b";
+}
+
+.eye:before {
+    content: "\f06e";
+}
+
+.minus:before {
+    content: "\f068";
+}
+
+.minusall:before {
+    content: "\f056";
+}
+
+.font:before {
+    content: "\f034";
+}
+
+.line:before {
+    content: "\f147";
+}
+
+.aleft:before {
+    content: "\f036";
+}
+
+.aright:before {
+    content: "\f038";
+}
+
+.ajust:before {
+    content: "\f039";
+}
+
+.acenter:before {
+    content: "\f037";
+}
+
+.save:before {
+    content: "\f0c7";
+}
+
+.saveas:before {
+    content: "\f0c7";
+    color: #777;
+}
+
+.new:before {
+    content: "\f016";
+}
+
+.open:before {
+    content: "\f15c";
+}
+
+.last:before {
+    content: "\f15b";
+}
+
+.ulist:before {
+    content: "\f0ca";
+}
+
+.olist:before {
+    content: "\f0cb";
+}
+
+.indent:before {
+    content: "\f03c";
+}
+
+.dedent:before {
+    content: "\f03b";
+}
+
+.link:before {
+    content: "\f0c1";
+}
+
+.undo:before {
+    content: "\f0e2";
+}
+
+.redo:before {
+    content: "\f01e";
+}
+
+/*----------------------------------------------------*/
+
+.tbfloat {
+    position: fixed;
+    display: none;
+    background: #000;
+    color: #fff;
+    margin: .4px;
+    padding: .5em;
+    border: 1px solid #bce;
+    border-radius: 4px;
+    box-shadow: 0 0 4px 2px #777;
+}
+
+blockquote {
+    margin: 0 0 0 2em !important;
+}
+
+/*----------------------------------------------------*/
+@media only screen and (min-width: 35em) {
+    /* Style adjustments for viewports that meet the condition */
+}
+
+@media print,
+(-o-min-device-pixel-ratio: 5/4),
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 120dpi) {
+    /* Style adjustments for high resolution devices */
+}
+
+@media print {
+    body {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+    }
+
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    #toolbar {
+        display: none;
+    }
+
+    #editor, .editor {
+        border: 1px solid #eee;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.41cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

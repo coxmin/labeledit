@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--link rel="stylesheet" href="css/normalize.css"?-->
+    <link rel="stylesheet" href="css/main.css">
+    <!--link rel="stylesheet" href="css/font-awesome.css"-->
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jscolor.js"></script>
+</head>
+<body>
+
+<div id="main">
+    <div id="toolbar">
+        <button onclick="setStyle('strong')" title="Bold"><i class="fa bold"></i></button>
+        <button onclick="setStyle('i')" title="Italic"><i class="fa italic"></i></button>
+        <button onclick="setStyle('u')" title="Subliniat"><i class="fa underline"></i></button>
+        <button onclick="setStyle('s')" title="Tăiat"><i class="fa strike"></i></button>
+        <button onclick="setStyle('sub')" title="Subscript(indice)"><i class="fa sub"></i></button>
+        <button onclick="setStyle('sup')" title="Suprascript(exponent)"><i class="fa sup"></i></button>
+        <button onclick="addElem('hr')" title="Linie orizontală"><i class="fa line"></i></button>
+        <button onclick="addElem('p')" title="Paragraf nou"><i class="fa">P</i></button>
+        <button onclick="setStyle('mark')" title="Marcator"><i class="fa eye"></i></button>
+        <button onclick="setAlign('left')" title="Aliniază la stânga"><i class="fa aleft"></i></button>
+        <button onclick="setAlign('center')" title="Centrează"><i class="fa acenter"></i></button>
+        <button onclick="setAlign('right')" title="Aliniază la dreapta"><i class="fa aright"></i></button>
+        <button onclick="setAlign('justify')" title="Aliniază uniform"><i class="fa ajust"></i></button>
+        <span class="inhand"><input maxlength="6" class="color" id="fgpick" onchange="setBtColor('#'+this.color, 0)"
+                                    value="000000" title="Culoare text"/>
+        <button id="fgcolor" onclick="setFgColor();" title="Aplică culoarea textului">C</button></span>
+        <span class="inhand"><input maxlength="6" class="color" id="bgpick" onchange="setBtColor('#'+this.color, 1)"
+                                    value="FFFFFF" title="Culoare fundal"/>
+        <button id="bgcolor" onclick="setBgColor();" title="Aplică culoarea fundalului">F</button></span>
+        <select id="selFF" onchange="setFF();" title="Familie font">
+            <option> serif</option>
+            <option> Arial</option>
+            <option> Arial Black</option>
+            <option> Arial Narrow</option>
+            <option> Book Antiqua</option>
+            <option> Brush Script MT</option>
+            <option> Calibri</option>
+            <option> Calibri Light</option>
+            <option> Comic Sans MS</option>
+            <option> Consolas</option>
+            <option> Cooper Black</option>
+            <option> Courier New</option>
+            <option> Fixedsys</option>
+            <option> Harlow Solid Italic</option>
+            <option> Impact</option>
+            <option> Lucida Calligraphy</option>
+            <option> Lucida Sans Unicode</option>
+            <option> Magneto</option>
+            <option> Microsoft Sans Serif</option>
+            <option> Palatino Linotype</option>
+            <option> Segoe Script</option>
+            <option> Segoe Print</option>
+            <option> Segoe UI</option>
+            <option> Tahoma</option>
+            <option selected="selected"> sans-serif</option>
+        </select>
+        <span class="inhand">
+            <input type="number" maxlength="4" min="0" max="16" step=".1" value="1" id="fspick" class="fspick"
+                   title="Dimensiune (em) font"/>
+        <button id="fsize" onclick="setFS();" title="Scalează textul"><i class="fa font"></i></button></span>
+        <button onclick="clearStyle();" title="Curătă formatarea"><i class="fa minus"></i></button>
+        <button onclick="clearAllStyle();" title="Curătă toate atributele"><i class="fa minusall"></i></button>
+        <button onclick="preview();" title="Preview"><i class="fa">o</i></button>
+        <i class="sep">.</i>
+        <button onclick="saveas();" title="SaveAs"><i class="fa">S</i></button>
+        <button onclick="loadas();" title="LAs"><i class="fa">L</i></button>
+    </div>
+    <div id="page">
+        <div id="loadedit"></div>
+        <div id="editor" contenteditable="true" lang="ro">
+            text în text(div) area. Sunt <b>vizibile</b> <strong>tagurile?</strong><br/>
+            O altă linie,
+            <hr/>
+            sunt curios la selecție.
+        </div>
+        <div class="editor"></div>
+        <div class="editor"></div>
+        <div class="editor"></div>
+        <div class="editor"></div>
+        <div class="editor"></div>
+        <div class="editor"></div>
+        <div class="editor"></div>
+    </div>
+</div>
+<script type="text/javascript">
+var editor = document.getElementById('editor');
+/*$('#editor').keydown(function (evt) {
+ alert(editor.style.fontFamily);
+ var start = $(this).selectionStart;
+ var end = $(this).selectionEnd;
+ var $this = $(this);
+ var value = $this.text;
+ alert(start + ":" + end);
+ });
+ */
+
+function loadas() {
+    var fileref = document.createElement('script');
+    fileref.setAttribute("type", "text/javascript");
+    fileref.setAttribute("src", 'myfile');
+    document.getElementsByTagName("head")[0].appendChild(fileref);
+    //delete txt, ta, ff, fs;
+}
+
+function saveas() {
+    var c = getContent().replace(/(\r\n|\n|\r)/gm, '');
+    var txt = 'var obj = {"text":"' + c + '","ta":"' + editor.style.textAlign + '","ff":' + editor.style.fontFamily + ',"fs":"' + editor.style.fontSize + '"}';
+    txt += "\neditor.innerHTML = obj['text'];";
+    txt += "\neditor.style.fontFamily = obj['ff'];";
+    txt += "\neditor.style.fontSize = obj['fs'];";
+    txt += "\neditor.style.textAlign = obj['ta'];\n";
+    var textFileAsBlob = new Blob([txt], {type: 'text/javascript'});
+    var fileNameToSaveAs = "myfile";
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    if (window.webkitURL != null) {
+        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    }
+    else {
+        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        downloadLink.onclick = destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+    }
+    downloadLink.click();
+}
+
+function getText() {
+    return editor.innerText;
+}
+function getContent() {
+    return editor.innerHTML;
+}
+function isEmpty(range) {
+    var bag = document.createElement("div");
+    bag.appendChild(range.cloneContents());
+    if (bag.innerText == '') {
+        return true;
+    }
+    return false;
+}
+$(document).ready(function () {
+});
+
+function setStyle(stil) {
+    var sel = window.getSelection();
+    if (sel.rangeCount) {
+        var range = sel.getRangeAt(0);
+        var nou = document.createElement(stil);
+        nou.appendChild(range.extractContents());
+        range.insertNode(nou);
+    }
+}
+function addElem(e) {
+    var range = window.getSelection().getRangeAt(0);
+    range.insertNode(document.createElement(e));
+}
+function setFgColor() {
+    var sel = window.getSelection();
+    if (sel.rangeCount) {
+        var range = sel.getRangeAt(0);
+        var nou = document.createElement('span');
+        nou.style.color = '#' + document.getElementById('fgpick').value;
+        nou.appendChild(range.extractContents());
+        range.insertNode(nou);
+    }
+}
+function setBgColor() {
+    var sel = window.getSelection();
+    if (sel.rangeCount) {
+        var range = sel.getRangeAt(0);
+        var nou = document.createElement('span');
+        nou.style.backgroundColor = '#' + document.getElementById('bgpick').value;
+        nou.appendChild(range.extractContents());
+        range.insertNode(nou);
+    }
+}
+function setBtColor(color, bt) {
+    if (bt == 0) {
+        $('#fgcolor').css({'color': color});
+    }
+    else {
+        $('#bgcolor').css({'background-color': color});
+    }
+}
+function setFont(f) {
+    var sel = window.getSelection();
+    if (sel.rangeCount) {
+        var range = sel.getRangeAt(0);
+        var nou = document.createElement('font');
+        nou.style.font = f;
+        nou.appendChild(range.extractContents());
+        range.insertNode(nou);
+    }
+}
+function setFF(f) {
+    var selector = document.getElementById('selFF');
+    var family = selector.options[selector.selectedIndex].value;
+    var sel = window.getSelection();
+    if (sel.rangeCount) {
+        var range = sel.getRangeAt(0);
+        if (isEmpty(range)) {
+            editor.style.fontFamily = family;
+            return;
+        }
+        nou = document.createElement('font');
+        nou.style.fontFamily = family;
+        nou.appendChild(range.extractContents());
+        range.insertNode(nou);
+    } else {
+        editor.style.fontFamily = family;
+    }
+}
+function setFS() {
+    var size = document.getElementById('fspick').value + "em";
+    //$("#editor").class("doi");
+    var sel = window.getSelection();
+    if (sel.rangeCount) {
+        var range = sel.getRangeAt(0);
+        if (isEmpty(range)) {
+            editor.style.fontSize = size;
+            return;
+        }
+        nou = document.createElement('span');
+        nou.style.fontSize = size;
+        nou.appendChild(range.extractContents());
+        range.insertNode(nou);
+    } else {
+        editor.style.fontSize = size;
+    }
+}
+function clearStyle() {
+    var sel = window.getSelection();
+    if (sel.rangeCount) {
+        var range = sel.getRangeAt(0);
+        var nou = document.createElement('span');
+        var tmp = document.createElement('span');
+        tmp.appendChild(range.extractContents());
+        tmp.normalize();
+        nou.innerHTML = tmp.innerText;
+        range.insertNode(nou);
+    }
+}
+function clearAllStyle() {
+    var txt = editor.innerText;
+    editor.innerHTML = txt;
+    editor.style.fontSize = '1em';
+    editor.style.fontFamily = 'sans serif'
+}
+function setAlign(d) {
+    var sel = window.getSelection();
+    if (sel.rangeCount) {
+        var range = sel.getRangeAt(0);
+        if (isEmpty(range)) {
+            editor.style.textAlign = d;
+            return;
+        }
+        var nod = document.createElement("div");
+        nod.style.textAlign = d;
+        nod.appendChild(range.extractContents());
+        range.insertNode(nod);
+    }
+}
+function preview() {
+    $(".editor").html(getContent());
+    var ta = editor.style.textAlign;
+    var ff = editor.style.fontFamily;
+    var fs = editor.style.fontSize;
+    var es = document.getElementsByClassName("editor");
+    for (var e in es) {
+        es[e].style.textAlign = ta;
+        es[e].style.fontFamily = ff;
+        es[e].style.fontSize = fs;
+    }
+}
+function test() {
+    var range = window.getSelection().getRangeAt(0);
+    var nod = document.createElement("div");
+    nod.style.textAlign = 'center';
+    nod.appendChild(range.extractContents());
+    range.insertNode(nod);
+}
+function getSelectionHtml() {
+    var html = "";
+    if (typeof window.getSelection != "undefined") {
+        var sel = window.getSelection();
+        if (sel.rangeCount) {
+            var container = document.createElement("div");
+            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                container.appendChild(sel.getRangeAt(i).cloneContents());
+            }
+            html = container.innerHTML;
+        }
+    } else if (typeof document.selection != "undefined") {
+        if (document.selection.type == "Text") {
+            html = document.selection.createRange().htmlText;
+        }
+    }
+    alert(html);
+}
+function replaceSelectedText(replacementText) {
+    var sel, range;
+    if (window.getSelection) {
+        sel = window.getSelection();
+        if (sel.rangeCount) {
+            /*var elm = $('#txt');
+             var start = elm.selectionStart;
+             var end = elm.selectionEnd;
+             alert(elm.value.substring(start, end))*/
+            range = sel.getRangeAt(0);
+            range.deleteContents();
+            range.insertNode(document.createTextNode(replacementText));
+        }
+    } else if (document.selection && document.selection.createRange) {
+        range = document.selection.createRange();
+        range.text = replacementText;
+    }
+}
+function lst(o) {
+    var s = '';
+    for (var i in o) {
+        s += i + ':' + o[i] + '\n';
+    }
+    alert(s);
+}
+</script>
+</body>
+</html>
