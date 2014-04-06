@@ -6,6 +6,7 @@
     <title>Editor</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/norm.css">
     <link rel="stylesheet" href="css/main.css">
     <!--script type="text/javascript" src="js/jquery.js"></script-->
     <script type="text/javascript" src="js/jscolor.js"></script>
@@ -16,85 +17,68 @@
 <div id="main">
     <div id="toolbar">
         <div class="tbwrap">
-            <div class="tbb" onclick="edt.nou();" title="Doc Nou"><i class="fa new"></i></div>
-            <div class="tbb" onclick="edt.loadFile();" title="Deschide"><i class="fa open"></i></div>
-            <div class="tbb" onclick="edt.saveToLoco();" title="Save în cache"><i class="fa save"></i></div>
-            <div class="tbb" onclick="edt.saveBuff();" title="SaveAs"><i class="fa saveas"></i></div>
+            <button onclick="edt.nou();" title="Doc Nou" class="fa new"></button>
+            <button onclick="edt.loadFile();" title="Deschide" class="fa open"></button>
+            <button onclick="edt.saveToLoco();" title="Save în cache" class="fa save"></button>
+            <button onclick="edt.saveBuff();" title="SaveAs" class="fa saveas"></button>
         </div>
         <div class="tbwrap">
-            <div class="tbb" onclick="document.execCommand('undo', false, null);" title="Undo"><i class="fa undo"></i>
-            </div>
-            <div class="tbb" onclick="document.execCommand('redo', false, null);" title="Redo"><i class="fa redo"></i>
-            </div>
+            <button onclick="edt.exe('undo');" title="Undo" class="fa undo"></button>
+            <button onclick="edt.exe('redo');" title="Redo" class="fa redo"></button>
         </div>
-        <button onclick="edt.getCaretPos();" title="worker"><i class="fa">x</i></button>
-        <button onclick="tim();" title="worker"><i class="fa">X</i></button>
+        <button onclick="work();" title="worker" class="fa">X</button>
     </div>
     <div id="page">
-        <div id="loadedit"></div>
-        <div id="tArea" class="textarea" contenteditable="true">Conținut <em>preloaded</em> în <strong>editor</strong>
+        <div id="tArea" class="textarea" contenteditable="true">
+            text în text(div) area. Sunt <b>vizibile</b> <strong>tagurile?</strong><br/>
+            O altă linie,
+            <hr/>
+            sunt curios la selecție.
         </div>
     </div>
     <div id="tb1" class="tbfloat">
         <div class="trow">
-            <div class="tbb" onclick="document.execCommand('bold', false, null);" title="Bold"><i class="fa bold"></i>
-            </div>
-            <div class="tbb" onclick="document.execCommand('italic', false, null);" title="Italic"><i
-                    class="fa italic"></i></div>
-            <div class="tbb" onclick="document.execCommand('underline', false, null);" title="Subliniat"><i
-                    class="fa underline"></i></div>
-            <div class="tbb" onclick="document.execCommand('strikeThrough', false, null);" title="Tăiat"><i
-                    class="fa strike"></i></div>
+            <button class="fa bold" onclick="edt.exe('bold');" title="Bold"></button>
+            <button onclick="edt.exe('italic');" title="Italic" class="fa italic"></button>
+            <button onclick="edt.exe('underline');" title="Subliniat" class="fa underline"></button>
+            <button onclick="edt.exe('strikeThrough');" title="Tăiat" class="fa strike"></button>
         </div>
         <div class="trow">
-            <div class="tbb" onclick="document.execCommand('subscript', false, null);" title="Subscript(indice)"><i
-                    class="fa sub"></i></div>
-            <div class="tbb" onclick="document.execCommand('superscript', false, null);" title="Suprascript(exponent)">
-                <i
-                        class="fa sup"></i></div>
-            <div class="tbb" onclick="document.execCommand('indent', false, 2);" title="Indent"><i
-                    class="fa indent"></i></div>
-            <div class="tbb" onclick="document.execCommand('outdent', false, null);" title="Dedent"><i
-                    class="fa dedent"></i></div>
+            <button onclick="edt.exe('subscript');" title="Subscript(indice)" class="fa sub"></button>
+            <button onclick="edt.exe('superscript');" title="Suprascript(exponent)" class="fa sup"></button>
+            <button onclick="edt.exe('indent');" title="Indent" class="fa indent"></button>
+            <button onclick="edt.exe('outdent');" title="Dedent" class="fa dedent"></button>
         </div>
         <div class="trow">
-            <div class="tbb" onclick="document.execCommand('insertHorizontalRule', false, null);"
-                 title="Linie orizontală"><i
-                    class="fa line"></i></div>
-            <div class="tbb" onclick="document.execCommand('insertParagraph', false, null);" title="Paragraf nou"><i
-                    class="fa">P</i>
-            </div>
-            <div class="tbb" onclick="document.execCommand('insertUnorderedList');" title="Listă"><i
-                    class="fa ulist"></i>
-            </div>
-            <div class="tbb" onclick="document.execCommand('insertOrderedList');" title="Listă Ordonată"><i
-                    class="fa olist"></i>
-            </div>
+            <button onclick="edt.exe('insertHorizontalRule');" title="Linie orizontală" class="fa line"></button>
+            <button onclick="edt.exe('insertParagraph');" title="Paragraf nou" class="fa">P</button>
+            <button onclick="edt.exe('insertUnorderedList');" title="Listă" class="fa ulist"></button>
+            <button onclick="edt.exe('insertOrderedList');" title="Listă Ordonată" class="fa olist"></button>
         </div>
         <div class="trow">
-            <div class="tbb" onclick="document.execCommand('justifyLeft', false, null);" title="Aliniază la stânga"><i
-                    class="fa aleft"></i></div>
-            <div class="tbb" onclick="document.execCommand('justifyCenter', false, null);" title="Centrează"><i
-                    class="fa acenter"></i></div>
-            <div class="tbb" onclick="document.execCommand('justifyRight', false, null);" title="Aliniază la dreapta"><i
-                    class="fa aright"></i></div>
-            <div class="tbb" onclick="document.execCommand('justifyFull', false, null);" title="Aliniază uniform"><i
-                    class="fa ajust"></i></div>
+            <button onclick="edt.exe('justifyLeft');" title="Aliniază la stânga" class="fa aleft"></button>
+            <button onclick="edt.exe('justifyCenter');" title="Centrează" class="fa acenter"></button>
+            <button onclick="edt.exe('justifyRight');" title="Aliniază la dreapta" class="fa aright"></button>
+            <button onclick="edt.exe('justifyFull');" title="Aliniază uniform" class="fa ajust"></button>
         </div>
         <div class="trow">
-            <div class="tbb" onclick="document.execCommand('createLink', false, 'http://www.google.com');"
-                 title="HyperLink"><i
-                    class="fa link"></i></div>
-            <div class="tbb" onclick="edt.setSelStyle('mark');" title="Marker"><i class="fa eye">!</i></div>
+            <button onclick="edt.exe('createLink');" title="HyperLink" class="fa link"></button>
+            <button onclick="edt.setSelStyle('mark');" title="Marker" class="fa eye"></button>
         </div>
     </div>
+
 </div>
-
 <script type="text/javascript">
-
+    function work() {
+        wrk.postMessage(edt.text());
+    }
+    window.onunload = function () {
+        wrk.terminate();
+        clearInterval(pars);
+    }
     function loadCanvas(id) {
         var canvas = document.createElement('canvas');
-        var div = document.getElementById(id);
+        div = document.getElementById(id);
         canvas.id = "CursorLayer";
         canvas.width = 600;
         canvas.height = 400;
@@ -122,7 +106,7 @@
      */
 
 
-    function testf() {
+    function test() {
         var i = document.getElementById('infile');
         i.click();
     }
