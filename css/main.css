@@ -223,34 +223,43 @@ fieldset {
 #editor p {
 }
 
+.tbfloat {
+    position: fixed;
+    display: none;
+    background: #444;
+    color: #fff;
+    margin: .4px;
+    padding: .5em;
+    border: 1px solid #bce;
+    border-radius: 4px;
+    box-shadow: 0 0 4px 2px #777;
+}
+
 #toolbar {
-    background-color: #222;
+    background-color: #444;
     border-radius: 3px;
     box-shadow: 0 -1px 3px 0px #777;
     margin: 2px .2em;
 }
 
-.tbwrap {
-    display: inline-block;
-    margin: 4px 2px;
+.tbwrap, .trow {
+    margin: 6px 2px;
     padding: 0 1px;
     border-radius: 4px;
     box-shadow: 0 1px 2px 1px #777, 0 0 1px 1px #000;
-    background: #667;
+    background: #222;
+}
+
+.tbwrap {
+    display: inline-block;
 }
 
 .tbb {
     display: inline-block;
     cursor: pointer;
-    color: #000;
-    margin: 2px .4em;
-}
-
-.trow {
-    margin: 0px;
-    padding: 5px;
-    border-bottom: 1px solid #111;
-    border-top: 1px dotted #333;
+    color: #777;
+    margin: 0;
+    padding: 0;
 }
 
 input.color {
@@ -281,6 +290,11 @@ input.fspick {
     font-size: 1em;
     line-height: 1;
     -webkit-font-smoothing: antialiased;
+    border-right: 1px dashed #000;
+    border-left: 1px dashed #000;
+    padding: 0 .3em;
+    margin: 0;
+    width: 1em;
 }
 
 .bold:before {
@@ -394,20 +408,6 @@ input.fspick {
 
 .redo:before {
     content: "\f01e";
-}
-
-/*----------------------------------------------------*/
-
-.tbfloat {
-    position: fixed;
-    display: none;
-    background: #000;
-    color: #fff;
-    margin: .4px;
-    padding: .5em;
-    border: 1px solid #bce;
-    border-radius: 4px;
-    box-shadow: 0 0 4px 2px #777;
 }
 
 blockquote {
