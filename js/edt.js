@@ -243,7 +243,10 @@ window.onload = function () {
 		sel.removeAllRanges();
 		sel.addRange(r);
 	}, false);
-
+};
+window.onunload = function () {
+	wrk.terminate();
+	clearInterval(pars);
 };
 window.onresize = function () {
 	X = window.innerWidth;
@@ -251,36 +254,7 @@ window.onresize = function () {
 };
 function setFontFam() {
 	var plat = platform();
-	var fams;
-	if (plat == 'win') {
-		fams = [' serif', ' Arial', ' Arial Black', ' Arial Narrow', ' Book Antiqua', ' Brush Script MT',
-			' Calibri', ' Calibri Light', ' Comic Sans MS', ' Consolas', ' Cooper Black', ' Courier New', ' Fixedsys',
-			' Harlow Solid Italic', ' Impact', ' Lucida Calligraphy', ' Lucida Sans Unicode', ' Magneto',
-			' Microsoft Sans Serif', ' Palatino Linotype', ' Segoe Script', ' Segoe Print', ' Segoe UI', ' Tahoma'
-		];
-	} else {
-		fams = [' ABeeZee', ' Abel', ' Actor', ' Adamina', ' Aladin', ' Alef', ' Alegreya', ' Allura', ' Amiri', ' Anton', ' Andika',
-			' Basic', ' Bitstream Vera Sans', ' Bitstream Vera Sans Mono', ' Bitstream Vera Serif', 'Bree Serif',
-			'Bruno Ace', 'Cantarell', 'CantoraOne', 'Cardo', 'Caudex', 'Century Schoolbook L', 'Changa', 'Clara', 'Clean',
-			'ClearlyU', 'ClearlyU Alternate Glyphs', 'Coda', 'Comfortaa', 'Convergence', 'Corben', 'Courgette', 'Cousine',
-			'Croisant One', 'Crushed', 'DejaVu Sans', 'DejaVu Sans Mono', 'DejaVu Serif', 'Della Respira', 'Denk One', 'Devonshire',
-			'Dhyana', 'Didact Gothic', 'Domine', 'Dosis', 'Droid Sans', 'Droid Sans Mono', 'Droid Serif', 'EB Garamond', 'Eagle Lake',
-			'Economica', 'Elsie', 'Emblema One', 'Engagement', 'Englebert', 'Ewert', 'Fanwood Text', 'Fira Sans', 'Fixed',
-			'Fondamento', 'Forum', 'Francois One', 'Gentium Book Basic', 'Glass Antiqua', 'Great Vibes', 'Gruppo', 'HammersmithOne',
-			'HeadLandOne', 'Hermeneus One', 'IM FELL English', 'Inika', 'Jacques Francois Shadow', 'Jockey One', 'Josefin Sans Std',
-			'Jura', 'Kelly Slab', 'La Belle Aurore', 'Ledger', 'Lekton', 'Liberation Mono', 'Liberation Sans', 'Liberation Serif',
-			'Libre Baskerville', 'Maiden Orange', 'Marcellus', 'Marck Script', 'Margarine', 'McLaren', 'MedievalSharp', 'Merge One',
-			'Merriweather', 'Merriweather Sans', 'Mervale Script', 'Metal', 'Metamorphous', 'Miama', 'Milonga', 'Molengo', 'Monda',
-			'Monospace', 'Monoton', 'Moul', 'Neuton', 'New Rocker', 'Newspaper', 'Niconne', 'Nimbus Roman No9 L', 'Nimbus Sans L',
-			'NovaMono', 'Open Sans', 'Open Sans Condensed', 'Oranienbaum', 'Oswald', 'Parisienne', 'Paytone One', 'Pecita',
-			'Petit Formal Script', 'Plaster', 'Playfair Display', 'Poiret One', 'Poly', 'Porter Sans Block', 'Prociono', 'Purisa',
-			'Purple Purse', 'Quando', 'Quintessential', 'Radley', 'Raleway', 'Righteous', 'Roboto', 'Roboto Condensed', 'Roboto Slab',
-			'Romanesco', 'Rum Raisin', 'Sacramento', 'Sampige', 'Sanchez', 'Sancreek', 'Sans', 'Sarabun', 'Serif', 'Siemreap',
-			'Smokum', 'Sonsie One', 'Source Code Pro', 'Source Sans Pro', 'Special Elite', 'Stalin One', 'Stint Ultra Condensed',
-			'Stint Ultra Expanded', 'Stoke', 'Supermercado', 'Swanky and Moo Moo', 'Tangerine', 'Tenor Sans', 'Terminus', 'URW Bookman L',
-			'URW Chancery L', 'URW Gothic L', 'URW Palladio L', 'Ubuntu', 'Ubuntu Condensed', 'Ubuntu Mono', 'Ultra', 'Uncial Antiqua',
-			'Wellfleet', 'Yanone Kaffeesatz', 'Yellowtail', 'Zekton', ' Zeyada'];
-	}
+	var fams = ['serif', 'Arial', 'Arial Black', 'Arial Narrow', 'Calibri', 'Courier New', 'Fixedsys', 'Microsoft Sans Serif', 'Palatino Linotype', 'Tahoma'];
 	var select = document.getElementById('selFF');
 	var opt;
 	var k = 0;
@@ -290,8 +264,6 @@ function setFontFam() {
 		opt.value = fams[i];
 		opt.style.fontFamily = fams[i];
 		select.appendChild(opt);
-		select.options[k++].style.fontFamily = fams[i];
-		console.log('<font font-family=\'' + fams[i] + '\'>' + fams[i] + '</font>');
 	}
 	select.options[2].style.color = '#f00';
 }

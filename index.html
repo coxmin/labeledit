@@ -6,7 +6,6 @@
     <title>Editor</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--link rel="stylesheet" href="css/normalize.css"?-->
     <link rel="stylesheet" href="css/main.css">
     <!--script type="text/javascript" src="js/jquery.js"></script-->
     <script type="text/javascript" src="js/jscolor.js"></script>
@@ -17,14 +16,16 @@
 <div id="main">
     <div id="toolbar">
         <div class="tbwrap">
-            <button onclick="edt.nou();" title="Doc Nou"><span class="fa new"></span></button>
-            <button onclick="edt.loadFile();" title="Deschide"><span class="fa open"></span></button>
-            <button onclick="edt.saveToLoco();" title="Save în cache"><i class="fa save"></i></button>
-            <button onclick="edt.saveBuff();" title="SaveAs"><i class="fa saveas"></i></button>
+            <div class="tbb" onclick="edt.nou();" title="Doc Nou"><i class="fa new"></i></div>
+            <div class="tbb" onclick="edt.loadFile();" title="Deschide"><i class="fa open"></i></div>
+            <div class="tbb" onclick="edt.saveToLoco();" title="Save în cache"><i class="fa save"></i></div>
+            <div class="tbb" onclick="edt.saveBuff();" title="SaveAs"><i class="fa saveas"></i></div>
         </div>
         <div class="tbwrap">
-            <button onclick="document.execCommand('undo', false, null);" title="Undo"><i class="fa undo"></i></button>
-            <button onclick="document.execCommand('redo', false, null);" title="Redo"><i class="fa redo"></i></button>
+            <div class="tbb" onclick="document.execCommand('undo', false, null);" title="Undo"><i class="fa undo"></i>
+            </div>
+            <div class="tbb" onclick="document.execCommand('redo', false, null);" title="Redo"><i class="fa redo"></i>
+            </div>
         </div>
         <button onclick="edt.getCaretPos();" title="worker"><i class="fa">x</i></button>
         <button onclick="tim();" title="worker"><i class="fa">X</i></button>
@@ -87,13 +88,7 @@
 </div>
 
 <script type="text/javascript">
-    function work() {
-        wrk.postMessage(edt.text());
-    }
-    window.onunload = function () {
-        wrk.terminate();
-        clearInterval(pars);
-    };
+
     function loadCanvas(id) {
         var canvas = document.createElement('canvas');
         var div = document.getElementById(id);
