@@ -11,153 +11,71 @@
     <!--script type="text/javascript" src="js/jquery.js"></script-->
     <script type="text/javascript" src="js/jscolor.js"></script>
     <script type="text/javascript" src="js/edt.js"></script>
+    <script type="text/javascript" src="js/editor.js"></script>
 </head>
 <body>
-
 <div id="main">
     <div id="toolbar">
         <div class="tbwrap">
-            <button onclick="edt.nou();" title="Doc Nou" class="fa new"></button>
-            <button onclick="edt.loadFile();" title="Deschide" class="fa open"></button>
-            <button onclick="edt.saveToLoco();" title="Save în cache" class="fa save"></button>
-            <button onclick="edt.saveBuff();" title="SaveAs" class="fa saveas"></button>
+            <button onclick="editor.nou();" title="Doc Nou" class="fa new"></button>
+            <button onclick="editor.loadFile();" title="Deschide" class="fa download"></button>
+            <button onclick="editor.saveToLoco();" title="Save în cache" class="fa save"></button>
+            <button onclick="editor.saveBuff();" title="SaveAs" class="fa upload"></button>
+            <button onclick="editor.exe('reloadLastFile');" id="btreload" title="Reâncarcă ultimul fișier"
+                    class="fa reload"
+                    disabled></button>
         </div>
         <div class="tbwrap">
-            <button onclick="edt.exe('undo');" title="Undo" class="fa undo"></button>
-            <button onclick="edt.exe('redo');" title="Redo" class="fa redo"></button>
+            <button onclick="editor.exe('undo');" title="Undo" class="fa undo"></button>
+            <button onclick="editor.exe('redo');" title="Redo" class="fa redo"></button>
         </div>
-        <button onclick="edt.cxMenu(window.event);" title="worker" class="fa">X</button>
+        <button onclick="editor.rebuf();" title="worker" class="fa">X</button>
     </div>
     <div id="page">
-        <div id="tArea" class="textarea" contenteditable="true">
-            text în text(div) area. Sunt <b>vizibile</b> <strong>tagurile?</strong><br/>
+        <div id="ledit" class="textarea" contenteditable="true">
+        text în text(div) area. Sunt <b>vizibile</b> <strong>tagurile?</strong><br/>
             O altă linie,
-            <hr/>
             sunt curios la selecție.
         </div>
     </div>
     <div id="tb1" class="tbfloat">
         <div class="trow">
-            <button class="fa bold" onclick="edt.exe('bold');" title="Bold"></button>
-            <button onclick="edt.exe('italic');" title="Italic" class="fa italic"></button>
-            <button onclick="edt.exe('underline');" title="Subliniat" class="fa underline"></button>
-            <button onclick="edt.exe('strikeThrough');" title="Tăiat" class="fa strike"></button>
+            <button class="fa bold" onclick="editor.exe('bold');" title="Bold"></button>
+            <button onclick="editor.exe('italic');" title="Italic" class="fa italic"></button>
+            <button onclick="editor.exe('underline');" title="Subliniat" class="fa underline"></button>
+            <button onclick="editor.exe('strikeThrough');" title="Tăiat" class="fa strike"></button>
         </div>
         <div class="trow">
-            <button onclick="edt.exe('subscript');" title="Subscript(indice)" class="fa sub"></button>
-            <button onclick="edt.exe('superscript');" title="Suprascript(exponent)" class="fa sup"></button>
-            <button onclick="edt.exe('indent');" title="Indent" class="fa indent"></button>
-            <button onclick="edt.exe('outdent');" title="Dedent" class="fa dedent"></button>
+            <button onclick="editor.exe('subscript');" title="Subscript(indice)" class="fa sub"></button>
+            <button onclick="editor.exe('superscript');" title="Suprascript(exponent)" class="fa sup"></button>
+            <button onclick="editor.exe('indent');" title="Indent" class="fa indent"></button>
+            <button onclick="editor.exe('outdent');" title="Dedent" class="fa dedent"></button>
         </div>
         <div class="trow">
-            <button onclick="edt.exe('insertHorizontalRule');" title="Linie orizontală" class="fa line"></button>
-            <button onclick="edt.exe('insertParagraph');" title="Paragraf nou" class="fa">P</button>
-            <button onclick="edt.exe('insertUnorderedList');" title="Listă" class="fa ulist"></button>
-            <button onclick="edt.exe('insertOrderedList');" title="Listă Ordonată" class="fa olist"></button>
+            <button onclick="editor.exe('insertHorizontalRule');" title="Linie orizontală" class="fa line"></button>
+            <button onclick="editor.exe('insertParagraph');" title="Paragraf nou" class="fa">P</button>
+            <button onclick="editor.exe('insertUnorderedList');" title="Listă" class="fa ulist"></button>
+            <button onclick="editor.exe('insertOrderedList');" title="Listă Ordonată" class="fa olist"></button>
         </div>
         <div class="trow">
-            <button onclick="edt.exe('justifyLeft');" title="Aliniază la stânga" class="fa aleft"></button>
-            <button onclick="edt.exe('justifyCenter');" title="Centrează" class="fa acenter"></button>
-            <button onclick="edt.exe('justifyRight');" title="Aliniază la dreapta" class="fa aright"></button>
-            <button onclick="edt.exe('justifyFull');" title="Aliniază uniform" class="fa ajust"></button>
+            <button onclick="editor.exe('justifyLeft');" title="Aliniază la stânga" class="fa aleft"></button>
+            <button onclick="editor.exe('justifyCenter');" title="Centrează" class="fa acenter"></button>
+            <button onclick="editor.exe('justifyRight');" title="Aliniază la dreapta" class="fa aright"></button>
+            <button onclick="editor.exe('justifyFull');" title="Aliniază uniform" class="fa ajust"></button>
         </div>
         <div class="trow">
-            <button onclick="edt.exe('createLink');" title="HyperLink" class="fa link"></button>
-            <button onclick="edt.exe('insertImage');" title="Imagine" class="fa image"></button>
-            <button onclick="edt.setSelStyle('mark');" title="Marker" class="fa eye"></button>
+            <button onclick="editor.exe('createLink');" title="HyperLink" class="fa link"></button>
+            <button onclick="editor.exe('unlink');" title="Șterge Link" class="fa unlink"></button>
+            <button onclick="editor.exe('insertImage');" title="Imagine" class="fa image"></button>
+            <button onclick="editor.setSelStyle('mark');" title="Marker" class="fa eye"></button>
+        </div>
+        <div class="trow">
+            <button onclick="ctxdiv.style.display='none';" class="fa close"></button>
         </div>
     </div>
-    <input type="hidden" id="fname"/>
 </div>
 <script type="text/javascript">
-    function work() {
-        wrk.postMessage(edt.text());
-    }
-    window.onunload = function () {
-        wrk.terminate();
-        clearInterval(pars);
-    }
-    function loadCanvas(id) {
-        var canvas = document.createElement('canvas');
-        div = document.getElementById(id);
-        canvas.id = "CursorLayer";
-        canvas.width = 600;
-        canvas.height = 400;
-        canvas.style.zIndex = 8;
-        canvas.style.position = "absolute";
-        canvas.style.left = 0;
-        canvas.style.top = 0;
-        canvas.style.border = "1px solid #0f0";
-        div.appendChild(canvas);
-        var ctx = canvas.getContext("2d");
-        ctx.lineWidth = 10;
-        ctx.strokeStyle = "#777";
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "#00f";
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(300, 150);
-        ctx.stroke();
-    }
-    /*
-     Storage.prototype.getObject = function(key) {
-     var value = this.getItem(key);
-     return value && JSON.parse(value);
-     }
-     */
 
-
-    function test() {
-        var i = document.getElementById('infile');
-        i.click();
-    }
-
-    function getSelectionHtml() {
-        var html = "";
-        if (typeof window.getSelection != "undefined") {
-            var sel = window.getSelection();
-            if (sel.rangeCount) {
-                var container = document.createElement("div");
-                for (var i = 0, len = sel.rangeCount; i < len; ++i) {
-                    container.appendChild(sel.getRangeAt(i).cloneContents());
-                }
-                html = container.innerHTML;
-            }
-        } else if (typeof document.selection != "undefined") {
-            if (document.selection.type == "Text") {
-                html = document.selection.createRange().htmlText;
-            }
-        }
-        alert(html);
-    }
-    function replaceSelectedText(replacementText) {
-        var sel, range;
-        if (window.getSelection) {
-            sel = window.getSelection();
-            if (sel.rangeCount) {
-                /*var elm = $('#txt');
-                 var start = elm.selectionStart;
-                 var end = elm.selectionEnd;
-                 alert(elm.value.substring(start, end))*/
-                range = sel.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(document.createTextNode(replacementText));
-            }
-        } else if (document.selection && document.selection.createRange) {
-            range = document.selection.createRange();
-            range.text = replacementText;
-        }
-    }
-    function lst(o) {
-        var s = '';
-        for (var i in o) {
-            try {
-                console.log(i + ' => ' + o[i]);
-            } catch (err) {
-                console.log("ERR: " + err.message);
-            }
-        }
-    }
 </script>
 </body>
 </html>
