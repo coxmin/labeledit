@@ -11,9 +11,11 @@ var ctxdiv;
 function LabeleDit(edt) {
     var tata = this;
     this.editor = edt;
+    this.tmpId = 1;
     editor = edt;
     this.id = edt.id;
     this.inputFile = document.createElement('input');
+    this.aFile = document.createElement('input');
     this.inputFile.setAttribute('type', 'file');
     this.inputFile.setAttribute('id', 'infile');
     var fReader = null;
@@ -24,6 +26,8 @@ function LabeleDit(edt) {
         };
         fReader.readAsText(this.files[0]);
     };
+    this.aFile.setAttribute('type', 'file');
+    this.aFile.setAttribute('id', 'afile');
     this.saveInt = 0;
 }
 LabeleDit.prototype.text = function (arg) {
@@ -59,10 +63,24 @@ LabeleDit.prototype.exe = function (what, b, arg) {
             if (h != '') {
                 document.execCommand('createLink', false, h);
             }
+        case 'insertImage':
+            this.aFile.onchange = function () {
+                var fReader = new FileReader();
+                fReader.onload = function () {
+                    var im = '<img id="img' + edt.tmpId + '" src="' + this.result + '"/>';
+                    document.execCommand('insertHTML', false, im);
+                    document.getElementById('img' + edt.tmpId++).addEventListener('mouseover', function (evt) {
+                        log(evt.x);
+                    }, false);
+                };
+                fReader.readAsDataURL(this.files[0]);
+            };
+            this.aFile.click();
         default :
             document.execCommand(what, (b == undefined) ? false : b, (arg == undefined) ? null : arg);
     }
-};
+}
+;
 
 LabeleDit.prototype.setSelStyle = function (stil) {
     var sel = window.getSelection();
@@ -295,4 +313,14 @@ function setFontFam() {
         select.appendChild(opt);
     }
     select.options[2].style.color = '#f00';
+}
+function lst(o) {
+    var s = '';
+    for (var i in o) {
+        try {
+            console.log(i + ' => ' + o[i]);
+        } catch (err) {
+            console.log("ERR: " + err.message);
+        }
+    }
 }

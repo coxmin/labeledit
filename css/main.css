@@ -195,7 +195,9 @@ input.fspick {
 .link:before {
     content: "\f0c1";
 }
-
+.image:before{
+    content: "\f083";
+}
 .undo:before {
     content: "\f0e2";
 }

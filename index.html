@@ -26,7 +26,7 @@
             <button onclick="edt.exe('undo');" title="Undo" class="fa undo"></button>
             <button onclick="edt.exe('redo');" title="Redo" class="fa redo"></button>
         </div>
-        <button onclick="work();" title="worker" class="fa">X</button>
+        <button onclick="edt.cxMenu(window.event);" title="worker" class="fa">X</button>
     </div>
     <div id="page">
         <div id="tArea" class="textarea" contenteditable="true">
@@ -63,10 +63,11 @@
         </div>
         <div class="trow">
             <button onclick="edt.exe('createLink');" title="HyperLink" class="fa link"></button>
+            <button onclick="edt.exe('insertImage');" title="Imagine" class="fa image"></button>
             <button onclick="edt.setSelStyle('mark');" title="Marker" class="fa eye"></button>
         </div>
     </div>
-
+    <input type="hidden" id="fname"/>
 </div>
 <script type="text/javascript">
     function work() {
